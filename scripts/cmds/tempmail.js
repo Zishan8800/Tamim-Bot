@@ -1,54 +1,56 @@
-const axios = require('axios');
+const axios = require("axios");
+const fs = require("fs-extra");
+const path = require("path");
 
-module.exports.config = {
-  name: "tempmail",
-aliases: ["tm"],
-  version: "1.0",
-  role: 0,
-  countdown: 5,
-  author: "kshitiz",
-  usePrefix: true,
-  description: "create tempmail",
-  category: "media",
-};
-
-const TEMP_MAIL_URL = 'https://tempmail-api.codersensui.repl.co/api/gen';
-
-module.exports.onStart = async ({ api, event, args }) => {
-  try {
-    if (args[0] === 'inbox') {
-      if (!args[1]) {
-        return api.sendMessage("❌ Please provide an email address for the inbox.", event.threadID);
-      }
-
-      const emailAddress = args[1];
-      const inboxResponse = await axios.get(`https://tempmail-api.codersensui.repl.co/api/getmessage/${emailAddress}`);
-      const messages = inboxResponse.data.messages;
-
-      if (!messages || messages.length === 0) {
-        return api.sendMessage(`No messages found for ${emailAddress}.`, event.threadID);
-      }
-
-      let messageText = '📬 Inbox Messages: 📬\n\n';
-      for (const message of messages) {
-        messageText += `📩 Sender: ${message.sender}\n`;
-        messageText += `👀 Subject: ${message.subject || '👉 NO SUBJECT'}\n`;
-        messageText += `📩 Message: ${message.message.replace(/<style([\s\S]*?)<\/style>|<script([\s\S]*?)<\/script>|<\/div>|<div>|<[^>]*>/gi, '')}\n\n`;
-      }
-
-      api.sendMessage(messageText, event.threadID);
-    } else {
-      const tempMailResponse = await axios.get(TEMP_MAIL_URL);
-      const tempMailData = tempMailResponse.data;
-
-      if (!tempMailData.email) {
-        return api.sendMessage("❌ Failed to generate temporary email.", event.threadID);
-      }
-
-      api.sendMessage(`📩 Here's your generated temporary email: ${tempMailData.email}`, event.threadID);
+module.exports = {
+  config: {
+    name: "tempmail",
+    aliases: [`tm`],
+    version: "1.0.0",
+    author: "ArYan🐔",
+    role: 0,
+    countDown: 5,
+    longDescription: {
+      en: "Generate temporary email and check inbox"
+    },
+    category: "email",
+    guide: {
+      en: ".tempmail < subcommand >\n\nFor Example:\n.tempmail gen\n.tempmail inbox <tempmail>"
     }
-  } catch (error) {
-    console.error('Error:', error);
-    api.sendMessage("No messages found in the current email).", event.threadID);
+  },
+  onStart: async function ({ api, event, args }) {
+    try {
+      if (args.length === 0) {
+        return api.sendMessage(this.config.guide.en, event.threadID, event.messageID);
+      }
+
+      if (args[0] === "gen") {
+        try {
+          const response = await axios.get("https://c-v1.onrender.com/tempmail/gen");
+          const responseData = response.data.email;
+          api.sendMessage(`📮|𝗧𝗲𝗺𝗽𝗺𝗮𝗶𝗹\n━━━━━━━━━━━━━\n\n𝖧𝖾𝗋𝖾 𝗂𝗌 𝗒𝗈𝗎𝗋 𝗀𝖾𝗇𝖾𝗋𝖺𝗍𝖾𝖽 𝗍𝖾𝗆𝗉𝗆𝖺𝗂𝗅\n\n📍|𝗘𝗺𝗮𝗶𝗹\n➤ ${responseData}`, event.threadID, event.messageID);
+        } catch (error) {
+          console.error("❌ | Error", error);
+          api.sendMessage("❌|Unable to generate email address. Please try again later...", event.threadID, event.messageID);
+        }
+      } else if (args[0].toLowerCase() === "inbox" && args.length === 2) {
+        const email = args[1];
+        try {
+          const response = await axios.get(`https://c-v1.onrender.com/tempmail/inbox?email=${email}`);
+          const data = response.data;
+          const inboxMessages = data.map(({ sender, subject, message }) => `📍|𝗧𝗲𝗺𝗺𝗮𝗶𝗹 𝗜𝗻𝗯𝗼𝘅\n━━━━━━━━━━━━━━━\n\n𝖧𝖾𝗋𝖾 𝗂𝗌 𝗒𝗈𝗎𝗋 𝗍𝖾𝗆𝗉𝗆𝖺𝗂𝗅 𝗂𝗇𝖻𝗈𝗑\n\n🔎 𝗙𝗿𝗼𝗺\n${sender}\n📭 𝗦𝘂𝗯𝗷𝗲𝗰𝘁\n➤ ${subject || 'Not Found'}\n\n📝 𝗠𝗲𝘀𝘀𝗮𝗴𝗲\n➤ ${message}`).join('\n\n');
+          api.sendMessage(inboxMessages, event.threadID, event.messageID);
+        } catch (error) {
+          console.error("🔴 Error", error);
+          api.sendMessage("❌|Can't get any mail yet. Please send mail first.", event.threadID, event.messageID);
+        }
+      } else {
+        api.sendMessage("❌ | Use 'Tempmail gen' to generate email and 'Tempmail inbox {email}' to get the inbox emails.", event.threadID, event.messageID);
+      }
+
+    } catch (error) {
+      console.error(error);
+      return api.sendMessage(`An error occurred. Please try again later.`, event.threadID, event.messageID);
+    }
   }
 };
