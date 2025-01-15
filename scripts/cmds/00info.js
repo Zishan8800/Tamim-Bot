@@ -15,17 +15,17 @@ module.exports = {
 		envConfig: {}
 	},
 	onStart: async function ({ message }) {
-		const authorName = " ⸙𝐓𝐀𝐌𝐈𝐌༉ ";
-		const ownAge = "『 ⸙__18+__⸙ 』";
-		const messenger = "https://m.me/brandtamim69";
-		const authorFB = "https://www.facebook.com/brandtamim69";
-		const authorNumber = "_0189398377*";
-		const Status = "ღ𝐒𝐈𝐍𝐆𝐋𝐄༉";
+		const authorName = " 𝐉𝐈𝐒𝐀𝐍 𝐀𝐇𝐌𝐄𝐃 ";
+		const ownAge = "『 19+ 』";
+		const messenger = "https://m.me/𝐓𝐞𝐫𝐚.𝐛𝐚𝐩.𝐜4𝐱";
+		const authorFB = "https://www.facebook.com/69𝐊";
+		const authorNumber = "_01731736377";
+		const Status = "𝐒𝐈𝐍𝐆𝐋𝐄:).♡";
 		const urls = [
-"https://i.imgur.com/bIgtOOj.jpeg",
-"https://i.imgur.com/bIgtOOj.jpeg",
-"https://i.imgur.com/bIgtOOj.jpeg",
-"https://i.imgur.com/bIgtOOj.jpeg"
+"https://i.imgur.com/nocvHfz.mp4",
+"https://i.imgur.com/KpGhdBY.mp4",
+"https://i.imgur.com/2Xa2RTl.mp4",
+"https://i.imgur.com/OxL7p9K.mp4"
 ];
 		const link = urls[Math.floor(Math.random() * urls.length)];
 		const now = moment().tz('Asia/Jakarta');
@@ -39,7 +39,7 @@ module.exports = {
 		const uptimeString = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
 
 		message.reply({
-			body: `ღ《 ⩸__𝐁𝐨𝐭 𝐀𝐧𝐝 𝐎𝐰𝐧𝐞𝐫 𝐈𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧__⩸ 》⸙
+			body: `ღ《 𝐁𝐎𝐓 𝐀𝐍𝐃 𝐎𝐖𝐍𝐄𝐑 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 》⸙
 \🤖BOT NAME : ⩸__${global.GoatBot.config.nickNameBot}__⩸
 \👾BOT SYSTEM PREFIX : ${global.GoatBot.config.prefix}
 \💙 OWNER NAME: ${authorName}
@@ -51,11 +51,11 @@ module.exports = {
 \⏰NOW TIME : ${time}
 \🔰ANY HELP CONTACT :⩸__${messenger}__⩸
 \📛BOT I'S RUNNING FOR : ${uptimeString}
-    𝑻𝒈: https://t.me/TAMIMOM69
-    𝑰𝒏𝒔𝒕𝒂: https://www.instagram.com/tamim_4203?igsh=YzljYTk1ODg3Zg==
-    𝑪𝒂𝒑𝑪𝒖𝒕: 𝐓𝐀𝐌𝐈𝐌
-    𝑻𝒊𝒌𝑻𝒐𝒌: 𝐍𝐎𝐓 𝐔𝐒𝐈𝐍𝐈𝐆
-    𝒀𝒐𝒖𝑻𝒖𝒃𝒆: 𝐆𝐎𝐑𝐈𝐁𝐄𝐑 𝐀𝐁𝐀𝐑 𝐘𝐎𝐔𝐓𝐔𝐁𝐑
+    𝐓𝐆: https://t.me/𝐒𝐀𝐇𝐄𝐋69𝐊
+    𝐈𝐍𝐒𝐓𝐀: https://www.instagram.com/𝐒𝐀𝐇𝐄𝐋_4203?igsh=YzljYTk1ODg3Zg==
+    𝐂𝐀𝐏𝐂𝐔𝐓: 𝐒𝐀𝐇𝐄𝐋69𝐊
+    𝐓𝐈𝐊𝐓𝐎𝐊: 𝐄𝐑𝐑𝐎𝐑
+    𝐘𝐓: 𝐒𝐀𝐇𝐄𝐋 𝐀𝐇𝐌𝐄𝐃 𝐉𝐈𝐒𝐀𝐍 
 \===============`,
 			attachment: await global.utils.getStreamFromURL(link)
 		});
